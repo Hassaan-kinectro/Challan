@@ -6,21 +6,14 @@ import { Form, Formik, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import Header from "./Header";
-import GenerateChallanClass from "./GenerateChallanClass";
-import SelectMode from "./SelectMode";
 
-const Students = (props) => {
-  const [className, setClassName] = useState();
-  const [mode, setMode] = useState();
+import Status from "./Status";
+const UpdateChallan = (props) => {
+  const [status, setStatus] = useState();
 
-  const alertFun = (data) => {
-    setClassName(data);
-    // console.log("data:", data);
-  };
-
-  const alertFun2 = (data) => {
-    setMode(data);
-    // console.log("data:", data);
+  const alertFun3 = (data) => {
+    setStatus(data);
+    console.log("data:", data);
   };
 
   const paperStyle = {
@@ -33,8 +26,7 @@ const Students = (props) => {
   const btnStyle = { margin: "8px 0" };
 
   const initialValues = {
-    firstName: "",
-    lastName: "",
+    challanId: "",
   };
 
   const onSubmit = (values, props) => {
@@ -49,24 +41,22 @@ const Students = (props) => {
   };
 
   const handleSubmit = async (values) => {
-    const { firstName, lastName } = values;
+    const { challanId } = values;
     const result = await axios.post(
-      "http://localhost:4001/api/students/addstudent",
+      "http://localhost:4001/api/challans/updatestatus",
       {
-        firstName,
-        lastName,
-        className,
-        mode,
+        challanId,
+        status,
       }
     );
 
-    console.log("flag1");
+    console.log("flag1", result);
 
     const token = result.data.token;
 
     localStorage.setItem("token", token);
 
-    alert("student is added to the class!");
+    alert("Challan Status Added Successdully!");
   };
 
   return (
@@ -79,34 +69,22 @@ const Students = (props) => {
         style={{ minHeight: "100vh" }}
       >
         <Paper elevation={20} style={paperStyle}>
-          <h2>Add Students</h2>
+          <h2>Update Student Status</h2>
           <Formik initialValues={initialValues} onSubmit={handleSubmit}>
             {(props) => (
               <Form>
                 <Field
                   as={TextField}
+                  label="Challan ID"
                   variant="outlined"
-                  label="First Name"
-                  name="firstName"
-                  type="Name"
+                  name="challanId"
+                  type="challanId"
                   autoComplete="off"
-                  helperText={<ErrorMessage name="firstName" />}
-                />
-                <br></br>
-                <Field
-                  as={TextField}
-                  label="Last Name"
-                  variant="outlined"
-                  name="lastName"
-                  type="Name"
-                  autoComplete="off"
-                  helperText={<ErrorMessage name="lastName" />}
+                  helperText={<ErrorMessage name="challanId" />}
                 />
                 <br></br>
 
-                <GenerateChallanClass name={alertFun} />
-                <SelectMode name={alertFun2} />
-
+                <Status name={alertFun3} />
                 <br></br>
                 <br></br>
 
@@ -138,4 +116,4 @@ const Students = (props) => {
   );
 };
 
-export default Students;
+export default UpdateChallan;

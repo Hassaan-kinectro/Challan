@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Button } from "@material-ui/core";
-import NotFound from "./NotFound";
+import NotFound from "../../NotFound";
 import { display } from "@mui/system";
 
-const DisplayChallan = () => {
+const DisplayStudentsChallan = () => {
   const [challanData, setChallanData] = useState([]);
 
   useEffect(() => {
@@ -82,4 +82,4 @@ const DisplayChallan = () => {
   );
 };
 
-export default DisplayChallan;
+export default DisplayStudentsChallan;

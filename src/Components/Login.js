@@ -40,9 +40,9 @@ const Login = (props) => {
   const handleSubmit = async (values) => {
     const { email, password } = values;
     console.log("flag0");
-    const result = await axios.post("http://localhost:4001/login", {
+    const result = await axios.post("http://localhost:4001/api/auth/login", {
       email,
-      password
+      password,
     });
     
     console.log("flag1");

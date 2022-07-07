@@ -1,42 +1,28 @@
 import React from "react";
 import { useState } from "react";
 import { Grid, Paper, Button } from "@material-ui/core";
-import { TextField } from "@material-ui/core";
-import { Form, Formik, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
+// import { TextField } from "@material-ui/core";
+import { Form, Formik } from "formik";
+// import * as Yup from "yup";
+import { initialValues } from "./helpers";
 import axios from "axios";
-import Header from "./Header";
-import GenerateChallanClass from "./GenerateChallanClass";
-import SelectMode from "./SelectMode";
+import Header from "../../Header";
+import SetClass from "../../student/setClass";
 
 const Students = (props) => {
   const [className, setClassName] = useState();
-  const [mode, setMode] = useState();
 
   const alertFun = (data) => {
     setClassName(data);
-    // console.log("data:", data);
+    console.log("data:", data);
   };
 
-  const alertFun2 = (data) => {
-    setMode(data);
-    // console.log("data:", data);
+  const getClassName = (data) => {
+    setClassName(data.data);
   };
 
-  const paperStyle = {
-    padding: 30,
-    height: "55vh",
-    margin: 30,
-    width: 550,
-    minHeight: 100,
-  };
+  const paperStyle = { padding: 45, height: "45vh", margin: 30, width: 550 };
   const btnStyle = { margin: "8px 0" };
-
-  const initialValues = {
-    firstName: "",
-    lastName: "",
-  };
-
   const onSubmit = (values, props) => {
     console.log(values);
 
@@ -49,24 +35,22 @@ const Students = (props) => {
   };
 
   const handleSubmit = async (values) => {
-    const { firstName, lastName } = values;
+    // const { className } = values;
+    console.log(values);
     const result = await axios.post(
-      "http://localhost:4001/api/students/addstudent",
+      "http://localhost:4001/api/challans/generatechallan",
       {
-        firstName,
-        lastName,
         className,
-        mode,
       }
     );
 
-    console.log("flag1");
+    console.log("flag1", result);
 
     const token = result.data.token;
 
     localStorage.setItem("token", token);
 
-    alert("student is added to the class!");
+    alert("Challan Generated Successfully!");
   };
 
   return (
@@ -79,35 +63,14 @@ const Students = (props) => {
         style={{ minHeight: "100vh" }}
       >
         <Paper elevation={20} style={paperStyle}>
-          <h2>Add Students</h2>
+          <h2>Generate Challan</h2>
           <Formik initialValues={initialValues} onSubmit={handleSubmit}>
             {(props) => (
               <Form>
-                <Field
-                  as={TextField}
-                  variant="outlined"
-                  label="First Name"
-                  name="firstName"
-                  type="Name"
-                  autoComplete="off"
-                  helperText={<ErrorMessage name="firstName" />}
-                />
-                <br></br>
-                <Field
-                  as={TextField}
-                  label="Last Name"
-                  variant="outlined"
-                  name="lastName"
-                  type="Name"
-                  autoComplete="off"
-                  helperText={<ErrorMessage name="lastName" />}
-                />
                 <br></br>
 
-                <GenerateChallanClass name={alertFun} />
-                <SelectMode name={alertFun2} />
+                <SetClass name ={alertFun} />
 
-                <br></br>
                 <br></br>
 
                 <Button
@@ -119,7 +82,7 @@ const Students = (props) => {
                   fullWidth
                 >
                   {" "}
-                  {props.isSubmitting ? "Loading" : "Save"}
+                  {props.isSubmitting ? "Loading" : "Generate"}
                 </Button>
                 <Button
                   variant="outlined"

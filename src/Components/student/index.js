@@ -3,12 +3,11 @@ import { useState } from "react";
 import { Grid, Paper, Button } from "@material-ui/core";
 import { TextField } from "@material-ui/core";
 import { Form, Formik, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
+import { initialValues } from "./helpers";
 import axios from "axios";
-import Header from "./Header";
-import GenerateChallanClass from "./GenerateChallanClass";
-import SelectMode from "./SelectMode";
-
+import Header from "../Header";
+import SetClass from "./setClass";
+import SelectMode1 from "./setMode";
 const Students = (props) => {
   const [className, setClassName] = useState();
   const [mode, setMode] = useState();
@@ -32,11 +31,7 @@ const Students = (props) => {
   };
   const btnStyle = { margin: "8px 0" };
 
-  const initialValues = {
-    firstName: "",
-    lastName: "",
-  };
-
+ 
   const onSubmit = (values, props) => {
     console.log(values);
 
@@ -104,8 +99,8 @@ const Students = (props) => {
                 />
                 <br></br>
 
-                <GenerateChallanClass name={alertFun} />
-                <SelectMode name={alertFun2} />
+                <SetClass name={alertFun} />
+                <SelectMode1 name={alertFun2} />
 
                 <br></br>
                 <br></br>

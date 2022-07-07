@@ -7,22 +7,22 @@ import {
   Grid,
   Box,
 } from "@material-ui/core";
-const Header = () => {
-    const handleSubmit = () => {
-        window.localStorage.removeItem("token"); 
-         window.location = "/";
-    }
-    return(
-        <div>
+const HeaderBar = () => {
+  const handleSubmit = () => {
+    window.localStorage.removeItem("token");
+    window.location = "/";
+  };
+  return (
+    <div>
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
           <Toolbar>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Student_Portal 
+              Student_Portal
             </Typography>
             <Grid container justify="flex-end">
               <Button
-              onClick={handleSubmit}
+                onClick={handleSubmit}
                 color="secondary"
                 size="large"
                 type="submit"
@@ -35,6 +35,6 @@ const Header = () => {
         </AppBar>
       </Box>
     </div>
-    )
-}
-export default Header;
+  );
+};
+export default HeaderBar;

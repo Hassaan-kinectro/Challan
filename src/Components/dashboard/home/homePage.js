@@ -2,11 +2,11 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import Header from "./Header";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     textAlign: "center",
-    marginTop: "250px"
+    marginTop: "250px",
   },
   btns: {
     "& > *": {
@@ -16,21 +16,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Home = () => {
+const HomePage = () => {
   const classes = useStyles();
 
   return (
     <div>
-      <Header />
       <div className={classes.root}>
         <Typography variant="h4" component="h4">
           Welcome to the Dashboard
         </Typography>
         <div className={classes.btns}>
-          <Button variant="outlined" href="/Create-Class">
+          <Button variant="outlined" href="/create-class">
             Create Class
           </Button>
-          <Button variant="outlined" href="/Create-Students">
+          <Button variant="outlined" href="/add-student">
             Add Student
           </Button>
           <Button variant="outlined" href="/Create-Challan">
@@ -42,10 +41,9 @@ const Home = () => {
           <Button variant="outlined" color="secondary" href="/update-challan">
             Set Status Of Student Challan
           </Button>
-
         </div>
       </div>
     </div>
   );
 };
-export default Home;
+export default HomePage;

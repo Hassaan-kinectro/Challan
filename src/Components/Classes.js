@@ -24,27 +24,24 @@ const Classes = (props) => {
       props.setSubmitting(false);
     }, 2000);
   };
-  // const validationSchema = Yup.object().shape({
-  //   firstName: Yup.string().required("Required"),
-  //   lastName: Yup.string().required("Required"),
-  //   className: Yup.string().required("Required")
-  // });
+ 
   const handleSubmit = async (values) => {
     const { addClass, classFees } = values;
 
-    const result = await axios.post("http://localhost:4001/add-class", {
-      addClass,
-      classFees,
-    });
+    const result = await axios.post(
+      "http://localhost:4001/api/classes/addclass",
+      {
+        addClass,
+        classFees,
+      }
+    );
 
     console.log("flag1");
-    // console.log("flag3", result.data);
+
     const token = result.data.token;
 
     localStorage.setItem("token", token);
 
-    //   <Redirect to="/dashboard" />;
-    // window.location = "/Create-Students";
     alert("student is added to the class!");
   };
 
@@ -59,26 +56,26 @@ const Classes = (props) => {
       >
         <Paper elevation={20} style={paperStyle}>
           <h2>Create Class</h2>
-          <Formik
-            initialValues={initialValues}
-            onSubmit={handleSubmit}
-            // validationSchema={validationSchema}
-          >
+          <Formik initialValues={initialValues} onSubmit={handleSubmit}>
             {(props) => (
               <Form>
                 <Field
                   as={TextField}
-                  label="className"
+                  label="Class Name"
+                  variant="outlined"
                   name="addClass"
                   type="Name"
+                  autoComplete="off"
                   helperText={<ErrorMessage name="addClass" />}
                   fullWidth
                 />
                 <Field
                   as={TextField}
-                  label="fees"
+                  variant="outlined"
+                  label="Class Fees"
                   name="classFees"
                   type="Name"
+                  autoComplete="off"
                   helperText={<ErrorMessage name="classFees" />}
                   fullWidth
                 />

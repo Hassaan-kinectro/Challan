@@ -14,7 +14,6 @@ import { Form, Formik, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 
-import Login from "./Login";
 
 const SignUp = (props) => {
   const paperStyle = { padding: 20, height: "70vh", margin: 60, width: 350 };
@@ -55,7 +54,7 @@ const SignUp = (props) => {
   const handleSubmit = async (values) => {
     const { firstname, lastname, email, password, confirmpassword } = values;
     console.log("flag0");
-    const result = await axios.post("http://localhost:4001/register", {
+    const result = await axios.post("http://localhost:4001/api/auth/register", {
       firstname,
       lastname,
       email,
@@ -68,8 +67,6 @@ const SignUp = (props) => {
 
     localStorage.setItem("token", token);
 
-    //   <Redirect to="/dashboard" />;
-    console.log("flag");
     window.location = "/login";
   };
 
