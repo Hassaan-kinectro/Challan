@@ -22,7 +22,7 @@ const LoginForm = (props) => {
       container
       alignItems="center"
       justifyContent="center"
-      style={{ minHeight: "100vh" }}
+      style={{ minHeight: "100vh", borderRadius:"3px" }}
     >
       <Paper elevation={10} style={paperStyle}>
         <Grid container alignItems="center" justifyContent="center">
@@ -33,6 +33,7 @@ const LoginForm = (props) => {
         <Form>
           {/* {console.log(props)} */}
           <Field
+            style={{ padding: "4px" }}
             as={TextField}
             label="Email"
             name="email"
@@ -41,6 +42,7 @@ const LoginForm = (props) => {
             helperText={<ErrorMessage name="email" />}
           />
           <Field
+            style={{ padding: "4px" }}
             as={TextField}
             label="Password"
             name="password"

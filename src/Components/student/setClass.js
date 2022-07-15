@@ -1,24 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import axios from "axios";
 
+import { useSelector } from "react-redux";
 const SetClass = (props) => {
   const [className, setClassName] = useState("");
-  const [allClasses, setAllClasses] = useState();
+  const classesAll = useSelector((state)=> state.className);
+//   console.log("classAll",classesAll)
   props.name(className);
-  useEffect(() => {
-    const getClassNames = async () => {
-      const result = await axios.get(
-        "http://localhost:4001/api/classes/getallclasses"
-      );
-      setAllClasses(result.data.data);
-      console.log("flag 0", result.data.data);
-    };
-    getClassNames();
-  }, []);
 
   const handleChange = (event) => {
     console.log(event.target.value);
@@ -38,10 +29,10 @@ const SetClass = (props) => {
             value={className}
             label="ClassName"
             onChange={handleChange}
-            // required
+             required
           >
-            {allClasses &&
-              allClasses.map((element) => {
+            {classesAll &&
+              classesAll.map((element) => {
                 return (
                   <MenuItem key={element._id} value={element.className}>
                     {element.className}

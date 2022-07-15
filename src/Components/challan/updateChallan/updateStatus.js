@@ -10,7 +10,7 @@ const StudentStatus = (props) => {
   props.name(status);
   const handleChange = (event) => {
     setStatus(event.target.value);
-    props.mode(event.target.value);
+    props.status(event.target.value);
   };
 
   return (
@@ -18,10 +18,10 @@ const StudentStatus = (props) => {
       <FormControl sx={{ m: 1, minWidth: 237 }}>
         <InputLabel id="demo-simple-select-helper-label">Status</InputLabel>
         <Select value={status} label="Status" onChange={handleChange} required>
-          <MenuItem value={"pending"}>
-            <em>pending</em>
+          <MenuItem value={"Pending"}>
+            <em>Pending</em>
           </MenuItem>
-          <MenuItem value={"unpaid"}>Unpaid</MenuItem>
+          <MenuItem value={"Unpaid"}>Unpaid</MenuItem>
           <MenuItem value={"Paid"}>Paid</MenuItem>
         </Select>
       </FormControl>

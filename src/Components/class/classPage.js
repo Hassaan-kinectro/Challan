@@ -1,9 +1,11 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Grid, Paper, Button } from "@material-ui/core";
 import { TextField } from "@material-ui/core";
-import { Form, Formik, Field, ErrorMessage } from "formik";
-import Header from "../Header";
+import { Form, Field, ErrorMessage } from "formik";
+import Header from "../dashboard/header";
 const ClassPage = (props) => {
+  
   const paperStyle = { padding: 45, height: "40vh", margin: 30, width: 550 };
   const btnStyle = { margin: "8px 0" };
 
@@ -29,6 +31,8 @@ const ClassPage = (props) => {
               autoComplete="off"
               helperText={<ErrorMessage name="addClass" />}
               fullWidth
+              required
+              
             />
             <Field
               as={TextField}
@@ -39,6 +43,7 @@ const ClassPage = (props) => {
               autoComplete="off"
               helperText={<ErrorMessage name="classFees" />}
               fullWidth
+              required
             />
 
             <br></br>
@@ -55,9 +60,11 @@ const ClassPage = (props) => {
               {" "}
               {props.isSubmitting ? "Loading" : "Save"}
             </Button>
-            <Button variant="outlined" color="primary" href="/home" fullWidth>
-              Go Back
-            </Button>
+            <Link to="/home" style={{ textDecoration: "none" }}>
+              <Button variant="outlined" color="primary" fullWidth>
+                Go Back
+              </Button>
+            </Link>
           </Form>
         </Paper>
       </Grid>

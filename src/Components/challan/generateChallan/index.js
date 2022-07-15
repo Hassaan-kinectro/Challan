@@ -1,13 +1,12 @@
 import React from "react";
 import { useState } from "react";
 import { Grid, Paper, Button } from "@material-ui/core";
-// import { TextField } from "@material-ui/core";
 import { Form, Formik } from "formik";
-// import * as Yup from "yup";
 import { initialValues } from "./helpers";
-import axios from "axios";
-import Header from "../../Header";
+import instance from "../../../config/axios";
+import Header from "../../dashboard/header";
 import SetClass from "../../student/setClass";
+import { Link } from "react-router-dom";
 
 const Students = (props) => {
   const [className, setClassName] = useState();
@@ -17,28 +16,28 @@ const Students = (props) => {
     console.log("data:", data);
   };
 
-  const getClassName = (data) => {
-    setClassName(data.data);
-  };
+//   const getClassName = (data) => {
+//     setClassName(data.data);
+//   };
 
   const paperStyle = { padding: 45, height: "45vh", margin: 30, width: 550 };
   const btnStyle = { margin: "8px 0" };
-  const onSubmit = (values, props) => {
-    console.log(values);
+//   const onSubmit = (values, props) => {
+//     console.log(values);
 
-    // console.log(props);
-    //reset form after 2 seconds and submitting
-    setTimeout(() => {
-      props.resetForm();
-      props.setSubmitting(false);
-    }, 2000);
-  };
+//     // console.log(props);
+//     //reset form after 2 seconds and submitting
+//     setTimeout(() => {
+//       props.resetForm();
+//       props.setSubmitting(false);
+//     }, 2000);
+//   };
 
   const handleSubmit = async (values) => {
     // const { className } = values;
     console.log(values);
-    const result = await axios.post(
-      "http://localhost:4001/api/challans/generatechallan",
+    const result = await instance.post(
+      "/api/challans/generatechallan",
       {
         className,
       }
@@ -69,7 +68,7 @@ const Students = (props) => {
               <Form>
                 <br></br>
 
-                <SetClass name ={alertFun} />
+                <SetClass name={alertFun} />
 
                 <br></br>
 
@@ -84,14 +83,11 @@ const Students = (props) => {
                   {" "}
                   {props.isSubmitting ? "Loading" : "Generate"}
                 </Button>
-                <Button
-                  variant="outlined"
-                  color="primary"
-                  href="/home"
-                  fullWidth
-                >
-                  Go Back
-                </Button>
+                <Link to="/home" style={{ textDecoration: "none" }}>
+                  <Button variant="outlined" color="primary" fullWidth>
+                    Go Back
+                  </Button>
+                </Link>
               </Form>
             )}
           </Formik>

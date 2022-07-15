@@ -4,19 +4,18 @@ import { Grid, Paper, Button } from "@material-ui/core";
 import { TextField } from "@material-ui/core";
 import { Form, Formik, Field, ErrorMessage } from "formik";
 import { initialValues } from "./helpers";
-import axios from "axios";
-import Header from "../../Header";
-
+import instance from "../../../config/axios";
+import Header from "../../dashboard/header";
+import { Link } from "react-router-dom";
 import StudentStatus from "./updateStatus";
 
-const UpdateChallanData = (props) => {
 
+const UpdateChallanData = (props) => {
   const [status, setStatus] = useState();
   const alertFun3 = (data) => {
     setStatus(data);
     console.log("data:", data);
   };
-
   const paperStyle = {
     padding: 30,
     height: "55vh",
@@ -26,26 +25,23 @@ const UpdateChallanData = (props) => {
   };
   const btnStyle = { margin: "8px 0" };
 
-  const onSubmit = (values, props) => {
-    console.log(values);
+  //   const onSubmit = (values, props) => {
+  //     console.log(values);
 
-    // console.log(props);
-    //reset form after 2 seconds and submitting
-    setTimeout(() => {
-      props.resetForm();
-      props.setSubmitting(false);
-    }, 2000);
-  };
+  //     // console.log(props);
+  //     //reset form after 2 seconds and submitting
+  //     setTimeout(() => {
+  //       props.resetForm();
+  //       props.setSubmitting(false);
+  //     }, 2000);
+  //   };
 
   const handleSubmit = async (values) => {
     const { challanId } = values;
-    const result = await axios.post(
-      "http://localhost:4001/api/challans/updatestatus",
-      {
-        challanId,
-        status,
-      }
-    );
+    const result = await instance.post("/api/challans/updatestatus", {
+      challanId,
+      status
+    });
 
     console.log("flag1", result);
 
@@ -66,7 +62,7 @@ const UpdateChallanData = (props) => {
         style={{ minHeight: "100vh" }}
       >
         <Paper elevation={20} style={paperStyle}>
-          <h2>Update Student Status</h2>
+          <h2>Update Student Status & Fees </h2>
           <Formik initialValues={initialValues} onSubmit={handleSubmit}>
             {(props) => (
               <Form>
@@ -79,7 +75,9 @@ const UpdateChallanData = (props) => {
                   autoComplete="off"
                   helperText={<ErrorMessage name="challanId" />}
                 />
+              
                 <br></br>
+            
 
                 <StudentStatus name={alertFun3} />
                 <br></br>
@@ -96,14 +94,11 @@ const UpdateChallanData = (props) => {
                   {" "}
                   {props.isSubmitting ? "Loading" : "Save"}
                 </Button>
-                <Button
-                  variant="outlined"
-                  color="primary"
-                  href="/home"
-                  fullWidth
-                >
-                  Go Back
-                </Button>
+                <Link to="/home" style={{ textDecoration: "none" }}>
+                  <Button variant="outlined" color="primary" fullWidth>
+                    Go Back
+                  </Button>
+                </Link>
               </Form>
             )}
           </Formik>

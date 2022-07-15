@@ -16,9 +16,9 @@ const HeaderBar = () => {
     <div>
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
-          <Toolbar>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Student_Portal
+          <Toolbar style={{ backgroundColor: "#CAD2E1" }}>
+            <Typography variant="h6" component="div" md={{ flexGrow: 1 }}>
+              
             </Typography>
             <Grid container justify="flex-end">
               <Button
@@ -27,6 +27,7 @@ const HeaderBar = () => {
                 size="large"
                 type="submit"
                 variant="contained"
+                
               >
                 LogOut
               </Button>

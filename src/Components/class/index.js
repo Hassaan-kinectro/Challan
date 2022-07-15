@@ -2,27 +2,34 @@ import React from "react";
 import { initialValues } from "./helpers";
 import { Formik } from "formik";
 import ClassPage from "./classPage";
-import axios from "axios";
+import instance from "../../config/axios";
+import { useDispatch } from "react-redux";
+import ClassNameAction from "../../Redux/actions";
 const Class = () => {
-   const handleSubmit = async (values) => {
-     const { addClass, classFees } = values;
+  const dispatch = useDispatch();
 
-     const result = await axios.post(
-       "http://localhost:4001/api/classes/addclass",
-       {
-         addClass,
-         classFees,
-       }
-     );
+  const handleSubmit = async (values) => {
+    const { addClass, classFees } = values;
+    console.log(values);
+    const result = await instance.post("/api/classes/addclass", {
+      addClass,
+      classFees,
+    });
 
-     console.log("flag1");
+    const GetAllClasses = await instance.get("/api/classes/getallclasses");
 
-     const token = result.data.token;
+    dispatch( ClassNameAction({ type: "class_Name", payload: GetAllClasses.data.data }));
 
-     localStorage.setItem("token", token);
+    console.log(result);
+    console.log("flag1");
 
-     alert("Class is Created Successfully!");
-   };
+    const token = result.data.token;
+
+    localStorage.setItem("token", token);
+
+    alert("Class is Created Successfully!");
+  };
+
   return (
     <div>
       <Formik initialValues={initialValues} onSubmit={handleSubmit}>

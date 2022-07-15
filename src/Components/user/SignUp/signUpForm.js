@@ -22,7 +22,7 @@ const SignUpForm = (props) => {
       container
       alignItems="center"
       justifyContent="center"
-      style={{ minHeight: "100vh" }}
+      style={{ minHeight: "100vh", borderRadius: "3px" }}
     >
       <Paper elevation={20} style={paperStyle}>
         <Grid container alignItems="center" justifyContent="center">
@@ -31,6 +31,7 @@ const SignUpForm = (props) => {
         <h2>Create New Account</h2>
         <Form>
           <Field
+            style={{ padding: "4px" }}
             as={TextField}
             label="FirstName"
             variant="outlined"
@@ -39,6 +40,7 @@ const SignUpForm = (props) => {
             helperText={<ErrorMessage name="firstname" />}
           />
           <Field
+            style={{ padding: "4px" }}
             as={TextField}
             variant="outlined"
             label="LastName"
@@ -47,6 +49,7 @@ const SignUpForm = (props) => {
             helperText={<ErrorMessage name="lastname" />}
           />
           <Field
+            style={{ padding: "4px" }}
             as={TextField}
             label="Email"
             variant="outlined"
@@ -55,6 +58,7 @@ const SignUpForm = (props) => {
             helperText={<ErrorMessage name="email" />}
           />
           <Field
+            style={{ padding: "4px" }}
             as={TextField}
             label="Password"
             variant="outlined"
@@ -63,11 +67,12 @@ const SignUpForm = (props) => {
             helperText={<ErrorMessage name="password" />}
           />
           <Field
+            style={{ padding: "4px" }}
             as={TextField}
             label="Confirm Password"
             variant="outlined"
             name="confirmpassword"
-            type="confirmpassword"
+            type="password"
             helperText={<ErrorMessage name="confirmpassword" />}
           />
           <br></br>

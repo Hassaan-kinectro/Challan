@@ -4,11 +4,14 @@ import { Grid, Paper, Button } from "@material-ui/core";
 import { TextField } from "@material-ui/core";
 import { Form, Formik, Field, ErrorMessage } from "formik";
 import { initialValues } from "./helpers";
-import axios from "axios";
-import Header from "../Header";
+import instance from "../../config/axios";
+import Header from "../dashboard/header";
 import SetClass from "./setClass";
 import SelectMode1 from "./setMode";
+import { Link } from "react-router-dom";
+
 const Students = (props) => {
+ 
   const [className, setClassName] = useState();
   const [mode, setMode] = useState();
 
@@ -32,21 +35,22 @@ const Students = (props) => {
   const btnStyle = { margin: "8px 0" };
 
  
-  const onSubmit = (values, props) => {
-    console.log(values);
+// //   const onSubmit = (values, props) => {
+// //     console.log(values);
 
-    // console.log(props);
-    //reset form after 2 seconds and submitting
-    setTimeout(() => {
-      props.resetForm();
-      props.setSubmitting(false);
-    }, 2000);
-  };
+//     // console.log(props);
+//     //reset form after 2 seconds and submitting
+//     setTimeout(() => {
+//       props.resetForm();
+//       props.setSubmitting(false);
+//     }, 2000);
+//   };
 
   const handleSubmit = async (values) => {
     const { firstName, lastName } = values;
-    const result = await axios.post(
-      "http://localhost:4001/api/students/addstudent",
+    console.log(values, className, mode);
+    const result = await instance.post(
+      "/api/students/addstudent",
       {
         firstName,
         lastName,
@@ -54,6 +58,7 @@ const Students = (props) => {
         mode,
       }
     );
+
 
     console.log("flag1");
 
@@ -86,6 +91,7 @@ const Students = (props) => {
                   type="Name"
                   autoComplete="off"
                   helperText={<ErrorMessage name="firstName" />}
+                  required
                 />
                 <br></br>
                 <Field
@@ -96,6 +102,7 @@ const Students = (props) => {
                   type="Name"
                   autoComplete="off"
                   helperText={<ErrorMessage name="lastName" />}
+                  required
                 />
                 <br></br>
 
@@ -116,14 +123,11 @@ const Students = (props) => {
                   {" "}
                   {props.isSubmitting ? "Loading" : "Save"}
                 </Button>
-                <Button
-                  variant="outlined"
-                  color="primary"
-                  href="/home"
-                  fullWidth
-                >
-                  Go Back
-                </Button>
+                <Link to="/home" style={{textDecoration:"none"}}>
+                  <Button variant="outlined" color="primary" fullWidth>
+                    Go Back
+                  </Button>
+                </Link>
               </Form>
             )}
           </Formik>
